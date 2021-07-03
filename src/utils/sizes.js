@@ -4,8 +4,8 @@ export const fontSizes = {
   lg: 24,
   xl: 32,
   xxl: 40,
-  xxxl: 60,
-  xxxxl: 80,
+  xxxl: 80,
+  xxxxl: 100,
 };
 
 export const spacing = {
