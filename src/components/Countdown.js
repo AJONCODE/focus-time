@@ -17,6 +17,29 @@ export const Countdown = ({
   const min = Math.floor(millis / 1000 / 60) % 60;
   const sec = Math.floor(millis / 1000) % 60;
 
+  const interval = React.useRef(null);
+
+  const countDown = () => {
+    setMillis((time) => {
+      if (time === 0) {
+        // TODO: do more stuff here
+        return time;
+      }
+
+      // decrement 1 sec on every interval
+      const timeLeft = time - 1000;
+      // TODO: report the progress
+      return timeLeft;
+    });
+  };
+
+  React.useEffect(() => {
+    interval.current = setInterval(countDown, 1000);
+
+    // clear interval
+    return () => clearInterval(interval.current);
+  }, []);
+
   return (
     <View>
       <Text style={styles.text}>{formatTime(min)} : {formatTime(sec)}</Text>
