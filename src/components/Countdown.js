@@ -11,6 +11,7 @@ const formatTime = (time) => time < 10 ? `0${time}` : time;
 export const Countdown = ({
   minutes = 20,
   isPaused = true,
+  onProgress,
 }) => {
   const [millis, setMillis] = React.useState(minutesToMillis(minutes));
 
@@ -28,7 +29,8 @@ export const Countdown = ({
 
       // decrement 1 sec on every interval
       const timeLeft = time - 1000;
-      // TODO: report the progress
+      // report the progress
+      onProgress(timeLeft / minutesToMillis(minutes));
       return timeLeft;
     });
   };
