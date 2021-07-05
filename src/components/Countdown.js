@@ -37,6 +37,10 @@ export const Countdown = ({
 
   React.useEffect(() => {
     if (isPaused) {
+      // clearing the reference
+      if (interval.current) {
+        clearInterval(interval.current);
+      }
       return;
     }
 
