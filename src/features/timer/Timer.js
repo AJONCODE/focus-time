@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
+import { useKeepAwake } from 'expo-keep-awake';
 
 import { Countdown } from '../../components/Countdown';
 import { RoundedButton } from '../../components/RoundedButton';
@@ -11,6 +12,9 @@ import { colors } from '../../utils/colors';
 import { spacing } from '../../utils/sizes';
 
 export const Timer = ({ focusSubject }) => {
+  // app will be awake
+  useKeepAwake();
+
   const [minutes, setMinutes] = React.useState(20);
   const [isStarted, setIsStarted] = React.useState(false);
   // We want to show progress bar from 100% to 0%
