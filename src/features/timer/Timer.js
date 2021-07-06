@@ -14,7 +14,7 @@ import { spacing } from '../../utils/sizes';
 const DEFAULT_TIME = 20;
 // const DEFAULT_TIME = 0.1;
 
-export const Timer = ({ focusSubject, onTimerEnd }) => {
+export const Timer = ({ focusSubject, onTimerEnd, clearSubject }) => {
   // app will be awake
   useKeepAwake();
 
@@ -82,6 +82,9 @@ export const Timer = ({ focusSubject, onTimerEnd }) => {
           <RoundedButton title="start" onPress={() => setIsStarted(true)} />
         )}
       </View>
+      <View style={styles.clearSubject}>
+        <RoundedButton title="-" size={50} onPress={() => clearSubject()} />
+      </View>
     </View>
   );
 };
@@ -116,6 +119,10 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     height: spacing.sm,
+  },
+  clearSubject: {
+    paddingBottom: spacing.lg,
+    paddingLeft: spacing.lg,
   },
 });
 
