@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Vibration, Platform } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { useKeepAwake } from 'expo-keep-awake';
 
@@ -11,11 +11,14 @@ import { Timing } from './Timing';
 import { colors } from '../../utils/colors';
 import { spacing } from '../../utils/sizes';
 
+const DEFAULT_TIME = 20;
+// const DEFAULT_TIME = 0.1;
+
 export const Timer = ({ focusSubject }) => {
   // app will be awake
   useKeepAwake();
 
-  const [minutes, setMinutes] = React.useState(20);
+  const [minutes, setMinutes] = React.useState(DEFAULT_TIME);
   const [isStarted, setIsStarted] = React.useState(false);
   // We want to show progress bar from 100% to 0%
   const [progress, setProgress] = React.useState(1);
@@ -30,10 +33,35 @@ export const Timer = ({ focusSubject }) => {
     setIsStarted(false);
   };
 
+  const vibrate = () => {
+    if (Platform.OS === 'ios') {
+      // Vibration.vibrate('10s'); -> does not work for ios
+      // vibrate every 1 second for 10 seconds
+      const interval = setInterval(() => {
+        Vibration.vibrate();
+      }, 1000);
+
+      // clear interval after 10 seconds
+      setTimeout(() => clearInterval(interval), 10 * 1000);
+    } else {
+      // Vibrate android device for 10 seconds
+      Vibration.vibrate(10000);
+    }
+  };
+
+  const onEnd = () => {
+    // vibrate the app
+    vibrate();
+    // clear up
+    setMinutes(DEFAULT_TIME);
+    setProgress(1);
+    setIsStarted(false);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.countdown}>
-        <Countdown minutes={minutes} isPaused={!isStarted} onProgress={onProgress} />
+        <Countdown minutes={minutes} isPaused={!isStarted} onProgress={onProgress} onEnd={onEnd} />
       </View>
       <View style={{ paddingTop: spacing.xxl }}>
         <Text style={styles.title}>Focusing on:</Text>

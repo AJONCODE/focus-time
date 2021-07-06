@@ -12,6 +12,7 @@ export const Countdown = ({
   minutes = 20,
   isPaused = true,
   onProgress,
+  onEnd,
 }) => {
   const [millis, setMillis] = React.useState(null);
 
@@ -23,7 +24,10 @@ export const Countdown = ({
   const countDown = () => {
     setMillis((time) => {
       if (time === 0) {
-        // TODO: do more stuff here
+        // clear interval
+        clearInterval(interval.current);
+        // timer ends, we'll execute onEnd func (to vibrate the phone)
+        onEnd();
         return time;
       }
 
