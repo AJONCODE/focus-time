@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, Text, FlatList } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, FlatList } from 'react-native';
 
 import { RoundedButton } from '../../components/RoundedButton';
 
@@ -14,9 +14,6 @@ const HistoryItem = ({ item, index }) => {
 };
 
 export const FocusHistory = ({ focusHistory, onClear }) => {
-  const clearHistory = () => {
-    onClear();
-  };
 
   return (
     <>
@@ -32,10 +29,15 @@ export const FocusHistory = ({ focusHistory, onClear }) => {
                 data={focusHistory}
                 renderItem={HistoryItem}
               />
+
+              <View style={styles.clearContainer}>
+                <RoundedButton size={75} title='Clear' onPress={() => onClear()} />
+              </View>
             </>
           )
         }
       </SafeAreaView>
+
     </>
   );
 };
@@ -59,5 +61,9 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: fontSizes.lg,
+  },
+  clearContainer: {
+    alignItems: 'center',
+    padding: spacing.md,
   },
 });
