@@ -3,6 +3,7 @@ import { StyleSheet, Platform, View } from 'react-native';
 // import Constants from 'expo-constants';
 
 import { Focus } from './src/features/focus/Focus';
+import { FocusHistory } from './src/features/focus/FocusHistory';
 import { Timer } from './src/features/timer/Timer';
 import { colors } from './src/utils/colors';
 import { spacing } from './src/utils/sizes';
@@ -26,7 +27,9 @@ export default function App() {
     ]);
   };
 
-  console.info('focusHistory: ', focusHistory);
+  const onClear = () => {
+    // TODO: clear focus history
+  };
 
   return (
     <View style={styles.container}>
@@ -43,7 +46,10 @@ export default function App() {
           }}
         />
       ) : (
-        <Focus addSubject={setFocusSubject} />
+        <>
+          <Focus addSubject={setFocusSubject} />
+          <FocusHistory focusHistory={focusHistory} onClear={onClear} />
+        </>
       )}
     </View>
   );
