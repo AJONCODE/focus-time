@@ -33,8 +33,6 @@ export const Countdown = ({
 
       // decrement 1 sec on every interval
       const timeLeft = time - 1000;
-      // report the progress
-      onProgress(timeLeft / minutesToMillis(minutes));
       return timeLeft;
     });
   };
@@ -42,6 +40,11 @@ export const Countdown = ({
   React.useEffect(() => {
     setMillis(minutesToMillis(minutes));
   }, [minutes]);
+
+  React.useEffect(() => {
+    // report the progress
+    onProgress(millis / minutesToMillis(minutes));
+  }, [millis]);
 
   React.useEffect(() => {
     if (isPaused) {
