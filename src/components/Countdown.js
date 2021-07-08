@@ -26,8 +26,6 @@ export const Countdown = ({
       if (time === 0) {
         // clear interval
         clearInterval(interval.current);
-        // timer ends, we'll execute onEnd func (to vibrate the phone)
-        onEnd();
         return time;
       }
 
@@ -44,6 +42,11 @@ export const Countdown = ({
   React.useEffect(() => {
     // report the progress
     onProgress(millis / minutesToMillis(minutes));
+
+    if (millis === 0) {
+      // timer ends, we'll execute onEnd func (to vibrate the phone)
+      onEnd();
+    }
   }, [millis]);
 
   React.useEffect(() => {
