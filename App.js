@@ -75,10 +75,10 @@ export default function App() {
           }}
         />
       ) : (
-        <>
+        <View style={styles.focusContainer}>
           <Focus addSubject={setFocusSubject} />
           <FocusHistory focusHistory={focusHistory} onClear={onClear} />
-        </>
+        </View>
       )}
     </View>
   );
@@ -90,5 +90,8 @@ const styles = StyleSheet.create({
     // paddingTop: Constants.statusBarHeight,
     paddingTop: Platform.OS === 'ios' ? spacing.md : spacing.lg,
     backgroundColor: colors.darkBlue,
+  },
+  focusContainer: {
+    flex: 1,
   },
 });
